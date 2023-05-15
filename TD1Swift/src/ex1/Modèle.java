@@ -6,22 +6,22 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class Modèle extends Observable implements Runnable{
 
-	private boolean[][] tab;
+	private Case[][] tab;
 	private int size;
 	private static Random rd = new Random();
 	
 	public Modèle(int size) {
 		this.size = size;
-		tab = new boolean[size][size];
+		tab = new Case[size][size];
 		for(int i=0; i<size;i++) {
 			for(int j=0; j<size;j++) {
-				tab[i][j] = rd.nextBoolean();
+				tab[i][j] = new Case();
 			}
 		}
 		
 	}
 	
-	public boolean[][] getTab(){
+	public Case[][] getTab(){
 		return tab;
 	}
 	
@@ -30,8 +30,14 @@ public class Modèle extends Observable implements Runnable{
 	}
 	
 	public void maj(int i, int j) {
-			tab[i][j] = !tab[i][j];
-		
+		if(tab[i][j].hasLegume()) {
+			if(tab[i][j].getLegume().getMure()) {
+				tab[i][j] = new Case();
+			}
+		}
+		else {
+			tab[i][j] = new Case(new Légume()); 
+		}
 	}
 	
 	public void run() {
@@ -39,6 +45,15 @@ public class Modèle extends Observable implements Runnable{
 		while(true) {
 			
 			try {
+				for(int i=0; i<size;i++) {
+					for(int j=0; j<size;j++) {
+						if(tab[i][j].hasLegume()) {
+							tab[i][j].getLegume().estMure();
+							tab[i][j].getLegume().setTmp(tab[i][j].getLegume().getTmp()+1);
+						}
+						
+					}
+				}
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
