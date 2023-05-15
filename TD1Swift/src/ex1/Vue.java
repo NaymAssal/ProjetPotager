@@ -3,6 +3,7 @@ package ex1;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -18,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,6 +35,7 @@ public class Vue extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
 	private Modèle m;
 	private JLabel[][] tabG;
+	private JLabel nb = new JLabel();
 
 	
 	
@@ -44,7 +47,7 @@ public class Vue extends JFrame implements Observer{
 		}catch(Exception e) {
 			e.addSuppressed(e);
 		}
-		}
+	}
 	
 	BufferedImage terre = image; // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
 
@@ -52,11 +55,11 @@ public class Vue extends JFrame implements Observer{
 	
 
 	{
-	try {
-		image = ImageIO.read(new File("data.png")); // chargement de l'image globale
-	}catch(Exception e) {
-		e.addSuppressed(e);
-	}
+		try {
+			image = ImageIO.read(new File("data.png")); // chargement de l'image globale
+		}catch(Exception e) {
+			e.addSuppressed(e);
+		}
 	}
 
 	BufferedImage salade = image.getSubimage(0, 0, 150, 150); // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
@@ -81,7 +84,20 @@ public class Vue extends JFrame implements Observer{
 		panelPrincipal.setLayout(new BorderLayout());
 		
 		JPanel panelMenu = new JPanel();
-		panelMenu.setSize(100,700);
+		panelMenu.setSize(400,700);
+		JButton vid = new JButton("Tout récolter");
+		panelMenu.add(vid);
+		vid.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.vider();
+			}
+		});
+		
+		nb.setForeground(Color.BLUE);
+		nb.setText("Hello world!");
+		panelMenu.add(nb);
+		
 		panelMenu.setBackground(Color.black);
 		panelMenu.setVisible(true);
 		panelPrincipal.add(panelMenu, BorderLayout.EAST);
@@ -91,15 +107,11 @@ public class Vue extends JFrame implements Observer{
 		
 		JPanel panelCentral = new JPanel();
 		panelCentral.setLayout(new GridLayout(m.getSize(),m.getSize()));
+		
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 		
-		 // chargement de l'image globale
-
-		 // image du légume
-		// le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
-
-		 // icône redimentionnée
 		
+
 		JLabel a;
 		
 		for(int i=0; i<m.getSize();i++) {
@@ -132,7 +144,7 @@ public class Vue extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		nb.setText(((Integer)(m.getNb())).toString());
 		
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {

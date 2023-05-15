@@ -1,5 +1,6 @@
 package ex1;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
@@ -7,10 +8,12 @@ import java.util.Random;
 public class Modèle extends Observable implements Runnable{
 
 	private Case[][] tab;
+	private ArrayList<Légume> recolte;
 	private int size;
 	private static Random rd = new Random();
 	
 	public Modèle(int size) {
+		recolte = new ArrayList<Légume>();
 		this.size = size;
 		tab = new Case[size][size];
 		for(int i=0; i<size;i++) {
@@ -21,6 +24,17 @@ public class Modèle extends Observable implements Runnable{
 		
 	}
 	
+	public void vider() {
+		for(int i=0; i<size;i++) {
+			for(int j=0; j<size;j++) {
+				if(tab[i][j].hasLegume()) {
+					maj(i,j);
+				}
+				
+			}
+		}
+	}
+	
 	public Case[][] getTab(){
 		return tab;
 	}
@@ -28,10 +42,14 @@ public class Modèle extends Observable implements Runnable{
 	public int getSize() {
 		return size;
 	}
+	public int getNb() {
+		return recolte.size();
+	}
 	
 	public void maj(int i, int j) {
 		if(tab[i][j].hasLegume()) {
 			if(tab[i][j].getLegume().getMure()) {
+				recolte.add(tab[i][j].getLegume());
 				tab[i][j] = new Case();
 			}
 		}
