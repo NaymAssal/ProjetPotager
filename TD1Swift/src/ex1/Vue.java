@@ -33,7 +33,7 @@ public class Vue extends JFrame implements Observer{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Modèle m;
+	private Modele m;
 	private JLabel[][] tabG;
 	private JLabel nb = new JLabel();
 
@@ -70,7 +70,7 @@ public class Vue extends JFrame implements Observer{
 
 	
 	
-	public Vue(Modèle m) {
+	public Vue(Modele m) {
 		this.m = m;
 		tabG = new JLabel[m.getSize()][m.getSize()];
 		setTitle("Potager");

@@ -2,22 +2,28 @@ package ex1;
 
 public class Case {
 	private boolean hasL;
-	private Légume leg;
+	private Legume leg;
+	private Meteo meteo;
 	
 	public Case() {
 		hasL = false;
 	}
 	
-	public Case(Légume leg) {
+	public Case(Meteo meteo) {
+		hasL = false;
+		this.meteo = meteo;
+	}
+	
+	public Case(Legume leg) {
 		hasL = true;
 		this.leg = leg;
 	}
 	
-	public Légume getLegume() {
+	public Legume getLegume() {
 		return leg;
 	}
 	
-	public void setLegume(Légume a) {
+	public void setLegume(Legume a) {
 		leg = a;
 	}
 	

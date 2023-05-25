@@ -1,12 +1,12 @@
 package ex1;
 
-public class Légume {
+public class Legume {
 
 	private boolean mure;
 	private int tmpM;
 	private int tmp;
 	
-	public Légume() {
+	public Legume() {
 		tmp = 0;
 		mure = false;
 		tmpM = 50;

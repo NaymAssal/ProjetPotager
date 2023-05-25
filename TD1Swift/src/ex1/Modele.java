@@ -5,20 +5,22 @@ import java.util.Observable;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class Modèle extends Observable implements Runnable{
+public class Modele extends Observable implements Runnable{
 
 	private Case[][] tab;
-	private ArrayList<Légume> recolte;
+	private ArrayList<Legume> recolte;
 	private int size;
 	private static Random rd = new Random();
+	private Meteo meteo;
 	
-	public Modèle(int size) {
-		recolte = new ArrayList<Légume>();
+	public Modele(int size, Meteo meteo) {
+		recolte = new ArrayList<Legume>();
+		this.meteo = meteo;
 		this.size = size;
 		tab = new Case[size][size];
 		for(int i=0; i<size;i++) {
 			for(int j=0; j<size;j++) {
-				tab[i][j] = new Case();
+				tab[i][j] = new Case(meteo);
 			}
 		}
 		
@@ -39,6 +41,10 @@ public class Modèle extends Observable implements Runnable{
 		return tab;
 	}
 	
+	public Meteo getMet() {
+		return meteo;
+	}
+	
 	public int getSize() {
 		return size;
 	}
@@ -54,7 +60,7 @@ public class Modèle extends Observable implements Runnable{
 			}
 		}
 		else {
-			tab[i][j] = new Case(new Légume()); 
+			tab[i][j] = new Case(new Legume()); 
 		}
 	}
 	
