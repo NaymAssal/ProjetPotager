@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -36,7 +37,7 @@ public class Vue extends JFrame implements Observer{
 	private Modele m;
 	private JLabel[][] tabG;
 	private JLabel nb = new JLabel();
-
+	private ArrayList<BufferedImage> listLeg = new ArrayList<BufferedImage>();
 	
 	
 	private BufferedImage image;
@@ -64,7 +65,18 @@ public class Vue extends JFrame implements Observer{
 
 	BufferedImage salade = image.getSubimage(0, 0, 150, 150); // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
 
-	ImageIcon icone2 = new ImageIcon(salade.getScaledInstance(100, 100,java.awt.Image.SCALE_SMOOTH)); 
+	ImageIcon icSal = new ImageIcon(salade.getScaledInstance(100, 100,java.awt.Image.SCALE_SMOOTH)); 
+	
+	
+	
+	BufferedImage tomate = image.getSubimage(3120 , 1170, 150, 150); // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+
+	ImageIcon icTom = new ImageIcon(salade.getScaledInstance(100, 100,java.awt.Image.SCALE_SMOOTH)); 
+	
+	BufferedImage carotte = image.getSubimage(390 , 390 , 150, 150); // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+
+	ImageIcon icCar = new ImageIcon(salade.getScaledInstance(100, 100,java.awt.Image.SCALE_SMOOTH)); 
+	
 	
 
 
@@ -110,6 +122,11 @@ public class Vue extends JFrame implements Observer{
 		
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 		
+		JPanel panelBas = new JPanel();
+		panelBas.setLayout(new GridLayout());
+		panelPrincipal.add(panelBas, BorderLayout.SOUTH);
+		
+		
 		
 
 		JLabel a;
@@ -150,8 +167,8 @@ public class Vue extends JFrame implements Observer{
 			for(int j=0; j<m.getSize();j++) {
 				if(m.getTab()[i][j].hasLegume()) {
 					
-					icone2 = new ImageIcon(salade.getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1),java.awt.Image.SCALE_SMOOTH)); 
-					tabG[i][j].setIcon(icone2);
+					icTom = new ImageIcon(tomate.getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1),java.awt.Image.SCALE_SMOOTH)); 
+					tabG[i][j].setIcon(icTom);
 				}
 				
 				else {

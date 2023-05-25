@@ -12,6 +12,7 @@ public class Modele extends Observable implements Runnable{
 	private int size;
 	private static Random rd = new Random();
 	private Meteo meteo;
+	private int select = 0;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
