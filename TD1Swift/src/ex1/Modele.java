@@ -13,9 +13,11 @@ public class Modele extends Observable implements Runnable{
 	private static Random rd = new Random();
 	private Meteo meteo;
 	private int select = 0;
+	private ArrayList<Integer> inventaire;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
+		inventaire = new ArrayList<Integer>();
 		this.meteo = meteo;
 		this.size = size;
 		tab = new Case[size][size];
@@ -65,18 +67,24 @@ public class Modele extends Observable implements Runnable{
 		if(tab[i][j].hasLegume()) {
 			if(tab[i][j].getLegume().getMure()) {
 				recolte.add(tab[i][j].getLegume());
+				inventaire.set(tab[i][j].getLegume().getType(), 1 +inventaire.get(tab[i][j].getLegume().getType()));
 				tab[i][j] = new Case();
-				System.out.println("test1");
 			}
 		}
 		else {
 			tab[i][j] = new Case(new Legume(select));
-			System.out.println("test");
+			
 		}
 	}
 	
+	public int getInv(int a) {
+		return inventaire.get(a);
+		}
+	
 	public void run() {
-		
+		for(int i=0; i<3; i++) {
+			inventaire.add((Integer)0);
+		}
 		while(true) {
 			
 			try {
@@ -89,6 +97,8 @@ public class Modele extends Observable implements Runnable{
 						
 					}
 				}
+				meteo.increment();
+				meteo.temps();
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

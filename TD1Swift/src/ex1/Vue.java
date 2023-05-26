@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -36,7 +35,11 @@ public class Vue extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
 	private Modele m;
 	private JLabel[][] tabG;
-	private JLabel nb = new JLabel();
+	private JLabel score = new JLabel();
+	private JLabel date = new JLabel();
+	private JLabel invSal = new JLabel();
+	private JLabel invCar = new JLabel();
+	private JLabel invTom = new JLabel();
 	private ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
 	
 	
@@ -137,12 +140,25 @@ public class Vue extends JFrame implements Observer{
 			}
 		});
 		
-		nb.setForeground(Color.BLUE);
-		nb.setText("Hello world!");
-		panelMenu.add(nb);
+		score.setForeground(Color.WHITE);
+		
+		date.setForeground(Color.WHITE);
+		
+		panelMenu.add(score);
+		
+		panelMenu.add(date);
+		
+		invSal.setForeground(Color.WHITE);
+		invCar.setForeground(Color.WHITE);
+		invTom.setForeground(Color.WHITE);
+		
+		panelMenu.add(invSal);
+		panelMenu.add(invCar);
+		panelMenu.add(invTom);
 		
 		panelMenu.setBackground(Color.black);
 		panelMenu.setVisible(true);
+		panelMenu.setLayout(new GridLayout(10,1));
 		panelPrincipal.add(panelMenu, BorderLayout.EAST);
 		panelPrincipal.setBackground(Color.blue);
 		panelPrincipal.setVisible(true);
@@ -192,8 +208,11 @@ public class Vue extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		nb.setText(((Integer)(m.getNb())).toString());
-		
+		score.setText("Score : "+((Integer)(m.getNb()*10)).toString());
+		date.setText("Date : "+m.getMet().getDate());
+		invSal.setText("Salade : "+ m.getInv(0));
+		invCar.setText("Carotte : "+ m.getInv(1));
+		invTom.setText("Tomate : "+ m.getInv(2));
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {
 				for(int g =0; g<list.size(); g++) {
