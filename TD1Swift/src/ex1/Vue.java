@@ -37,7 +37,8 @@ public class Vue extends JFrame implements Observer{
 	private Modele m;
 	private JLabel[][] tabG;
 	private JLabel nb = new JLabel();
-	private ArrayList<BufferedImage> listLeg = new ArrayList<BufferedImage>();
+	private ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
+	
 	
 	
 	private BufferedImage image;
@@ -83,6 +84,9 @@ public class Vue extends JFrame implements Observer{
 	
 	
 	public Vue(Modele m) {
+		list.add(salade);
+		list.add(carotte);
+		list.add(tomate);
 		this.m = m;
 		tabG = new JLabel[m.getSize()][m.getSize()];
 		setTitle("Potager");
@@ -103,6 +107,33 @@ public class Vue extends JFrame implements Observer{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				m.vider();
+			}
+		});
+		
+		JButton sal = new JButton("Salade");
+		panelMenu.add(sal);
+		sal.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.select(0);
+			}
+		});
+		
+		JButton car = new JButton("Carotte");
+		panelMenu.add(car);
+		car.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.select(1);
+			}
+		});
+		
+		JButton tom = new JButton("Tomate");
+		panelMenu.add(tom);
+		tom.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.select(2);
 			}
 		});
 		
@@ -165,10 +196,11 @@ public class Vue extends JFrame implements Observer{
 		
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {
+				for(int g =0; g<list.size(); g++) {
 				if(m.getTab()[i][j].hasLegume()) {
 					
-					icTom = new ImageIcon(tomate.getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1),java.awt.Image.SCALE_SMOOTH)); 
-					tabG[i][j].setIcon(icTom);
+					ImageIcon ic = new ImageIcon(list.get(m.getTab()[i][j].getLegume().getType()).getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1),java.awt.Image.SCALE_SMOOTH)); 
+					tabG[i][j].setIcon(ic);
 				}
 				
 				else {
@@ -178,4 +210,5 @@ public class Vue extends JFrame implements Observer{
 			}
 		}
 	}
+}
 }

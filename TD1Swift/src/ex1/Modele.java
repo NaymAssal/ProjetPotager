@@ -38,6 +38,14 @@ public class Modele extends Observable implements Runnable{
 		}
 	}
 	
+	public void select(int a) {
+		select = a;
+	}
+	
+	public int getSelect() {
+		return select;
+	}
+	
 	public Case[][] getTab(){
 		return tab;
 	}
@@ -58,10 +66,12 @@ public class Modele extends Observable implements Runnable{
 			if(tab[i][j].getLegume().getMure()) {
 				recolte.add(tab[i][j].getLegume());
 				tab[i][j] = new Case();
+				System.out.println("test1");
 			}
 		}
 		else {
-			tab[i][j] = new Case(new Legume()); 
+			tab[i][j] = new Case(new Legume(select));
+			System.out.println("test");
 		}
 	}
 	

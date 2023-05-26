@@ -30,6 +30,10 @@ public class Meteo {
 		}
 	}
 	
+	//public void getTemps() {
+	//	return temps;
+	//}
+	
 	public void temps() {
 		temps = r.nextDouble();
 	}

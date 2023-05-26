@@ -27,6 +27,10 @@ public class Case {
 		leg = a;
 	}
 	
+	public Meteo getMeteo() {
+		return meteo;
+	}
+	
 	public boolean hasLegume() {
 		return hasL;
 	}
