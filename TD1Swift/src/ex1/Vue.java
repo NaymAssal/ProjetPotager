@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("deprecation")
@@ -37,9 +38,13 @@ public class Vue extends JFrame implements Observer{
 	private JLabel[][] tabG;
 	private JLabel score = new JLabel();
 	private JLabel date = new JLabel();
+	private JLabel temp = new JLabel();
+	private JLabel ensol = new JLabel();
+	private JLabel humid = new JLabel();
 	private JLabel invSal = new JLabel();
 	private JLabel invCar = new JLabel();
 	private JLabel invTom = new JLabel();
+	private JSlider speed = new JSlider(0,10);
 	private ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
 	
 	
@@ -148,6 +153,7 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMenu.add(date);
 		
+		
 		invSal.setForeground(Color.WHITE);
 		invCar.setForeground(Color.WHITE);
 		invTom.setForeground(Color.WHITE);
@@ -158,7 +164,9 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMenu.setBackground(Color.black);
 		panelMenu.setVisible(true);
-		panelMenu.setLayout(new GridLayout(10,1));
+		
+		panelMenu.add(speed);
+		panelMenu.setLayout(new GridLayout(15,1));
 		panelPrincipal.add(panelMenu, BorderLayout.EAST);
 		panelPrincipal.setBackground(Color.blue);
 		panelPrincipal.setVisible(true);
@@ -208,6 +216,7 @@ public class Vue extends JFrame implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
+		m.setSpeed(speed.getValue());
 		score.setText("Score : "+((Integer)(m.getNb()*10)).toString());
 		date.setText("Date : "+m.getMet().getDate());
 		invSal.setText("Salade : "+ m.getInv(0));

@@ -14,6 +14,7 @@ public class Modele extends Observable implements Runnable{
 	private Meteo meteo;
 	private int select = 0;
 	private ArrayList<Integer> inventaire;
+	private int speed;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
@@ -27,6 +28,10 @@ public class Modele extends Observable implements Runnable{
 			}
 		}
 		
+	}
+	
+	public void setSpeed(int s) {
+		this.speed = s;
 	}
 	
 	public void vider() {
@@ -99,7 +104,7 @@ public class Modele extends Observable implements Runnable{
 				}
 				meteo.increment();
 				meteo.temps();
-				Thread.sleep(100);
+				Thread.sleep(1000/(speed+1));
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
