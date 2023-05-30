@@ -3,15 +3,13 @@ package ex1;
 public class Case {
 	private boolean hasL;
 	private Legume leg;
-	private Meteo meteo;
+	private boolean arrose;
+	
+	
 	
 	public Case() {
 		hasL = false;
-	}
-	
-	public Case(Meteo meteo) {
-		hasL = false;
-		this.meteo = meteo;
+		arrose = false;
 	}
 	
 	public Case(Legume leg) {
@@ -27,9 +25,14 @@ public class Case {
 		leg = a;
 	}
 	
-	public Meteo getMeteo() {
-		return meteo;
+	public boolean getArr() {
+		return arrose;
 	}
+	
+	public void setArr(boolean arr) {
+		arrose = arr;
+	}
+	
 	
 	public boolean hasLegume() {
 		return hasL;

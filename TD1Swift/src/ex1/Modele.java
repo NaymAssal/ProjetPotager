@@ -13,19 +13,24 @@ public class Modele extends Observable implements Runnable{
 	private static Random rd = new Random();
 	private Meteo meteo;
 	private int select = 0;
-	private ArrayList<Integer> inventaire;
+	private ArrayList<Integer> inventaireRecolte;
+	private ArrayList<Integer> inventaireGraine;
 	private int speed;
 	private int argent = 0;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
-		inventaire = new ArrayList<Integer>();
+		inventaireRecolte = new ArrayList<Integer>();
+		inventaireGraine = new ArrayList<Integer>();
+		for(int i=0; i<3; i++) {
+			inventaireGraine.add(3);
+		}
 		this.meteo = meteo;
 		this.size = size;
 		tab = new Case[size][size];
 		for(int i=0; i<size;i++) {
 			for(int j=0; j<size;j++) {
-				tab[i][j] = new Case(meteo);
+				tab[i][j] = new Case();
 			}
 		}
 		
@@ -36,9 +41,9 @@ public class Modele extends Observable implements Runnable{
 	}
 	
 	public void vendre(int a) {
-		if(inventaire.get(a)>0) {
+		if(inventaireRecolte.get(a)>0) {
 			argent+=10;
-			inventaire.set(a, inventaire.get(a)-1);
+			inventaireRecolte.set(a, inventaireRecolte.get(a)-1);
 			int i = 0;
 			boolean cond = false;
 			while(!cond && i<recolte.size()) {
@@ -89,26 +94,32 @@ public class Modele extends Observable implements Runnable{
 	}
 	
 	public void maj(int i, int j) {
-		if(tab[i][j].hasLegume()) {
-			if(tab[i][j].getLegume().getMure()) {
-				recolte.add(tab[i][j].getLegume());
-				inventaire.set(tab[i][j].getLegume().getType(), 1 +inventaire.get(tab[i][j].getLegume().getType()));
-				tab[i][j] = new Case();
+		if(tab[i][j].getArr()) {
+			if(tab[i][j].hasLegume()) {
+				if(tab[i][j].getLegume().getMure()) {
+					recolte.add(tab[i][j].getLegume());
+					inventaireRecolte.set(tab[i][j].getLegume().getType(), 1 +inventaireRecolte.get(tab[i][j].getLegume().getType()));
+					tab[i][j] = new Case();
+				}
+			}
+			else {
+				tab[i][j] = new Case(new Legume(select));
+				
 			}
 		}
 		else {
-			tab[i][j] = new Case(new Legume(select));
-			
+			tab[i][j].setArr(true);
 		}
+		
 	}
 	
 	public int getInv(int a) {
-		return inventaire.get(a);
+		return inventaireRecolte.get(a);
 		}
 	
 	public void run() {
 		for(int i=0; i<3; i++) {
-			inventaire.add((Integer)0);
+			inventaireRecolte.add((Integer)0);
 		}
 		while(true) {
 			

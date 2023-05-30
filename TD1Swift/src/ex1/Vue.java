@@ -64,8 +64,19 @@ public class Vue extends JFrame implements Observer{
 	
 	BufferedImage terre = image; // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
 
-	ImageIcon icone = new ImageIcon(terre.getScaledInstance(200, 200,java.awt.Image.SCALE_SMOOTH)); 
+	ImageIcon icTerre = new ImageIcon(terre.getScaledInstance(200, 200,java.awt.Image.SCALE_SMOOTH)); 
 	
+	{
+		try {
+			image = ImageIO.read(new File("terreArrose.png")); // chargement de l'image globale
+		}catch(Exception e) {
+			e.addSuppressed(e);
+		}
+	}
+	
+	BufferedImage terreArr = image; // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+
+	ImageIcon icTerreArr = new ImageIcon(terreArr.getScaledInstance(200, 200,java.awt.Image.SCALE_SMOOTH));
 
 	{
 		try {
@@ -165,9 +176,13 @@ public class Vue extends JFrame implements Observer{
 		panelMag.add(mag);
 		
 		argent.setForeground(Color.WHITE);
-		argent.setText("Argent : 0");
+		argent.setText("Argent : 0 euro(s)");
 		
 		panelMag.add(argent);
+		
+		panelMag.add(invSal);
+		panelMag.add(invCar);
+		panelMag.add(invTom);
 		
 		JButton vdSal = new JButton("Vendre une salade");
 		panelMag.add(vdSal);
@@ -212,9 +227,6 @@ public class Vue extends JFrame implements Observer{
 		ensol.setForeground(Color.WHITE);
 		humid.setForeground(Color.WHITE);
 		speed.setBackground(Color.BLACK);
-		panelMenu.add(invSal);
-		panelMenu.add(invCar);
-		panelMenu.add(invTom);
 		panelMenu.add(temp);
 		panelMenu.add(ensol);
 		panelMenu.add(humid);
@@ -250,7 +262,7 @@ public class Vue extends JFrame implements Observer{
 		
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {
-				a = new JLabel(icone, JLabel.CENTER);
+				a = new JLabel(icTerre, JLabel.CENTER);
 				a.setBackground(Color.WHITE);
 				a.setBorder(BorderFactory.createLineBorder(Color.black));
 				panelCentral.add(a);
@@ -279,7 +291,7 @@ public class Vue extends JFrame implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		m.setSpeed(speed.getValue());
-		argent.setText("Argent : "+m.getArg());
+		argent.setText("Argent : "+m.getArg()+" euro(s)");
 		temp.setText(m.getMet().getTemp());
 		ensol.setText(m.getMet().getEnsol());
 		humid.setText(m.getMet().getHumid());
@@ -298,7 +310,13 @@ public class Vue extends JFrame implements Observer{
 				}
 				
 				else {
-					tabG[i][j].setIcon(icone);
+					if(m.getTab()[i][j].getArr()) {
+						tabG[i][j].setIcon(icTerreArr);
+					}
+					else {
+						tabG[i][j].setIcon(icTerre);
+					}
+					
 
 				}
 			}

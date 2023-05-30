@@ -10,8 +10,12 @@ public class Legume {
 	public Legume(int type) {
 		tmp = 0;
 		mure = false;
-		tmpM = 50;
 		this.type = type;
+		switch(type) {
+		case 0: tmpM = 50;
+		case 1: tmpM = 20;
+		case 2: tmpM = 35;
+		}
 	}
 	
 	public int getType() {
@@ -28,6 +32,10 @@ public class Legume {
 	
 	public int getTmp() {
 		return tmp;
+	}
+	
+	public int getTmpM() {
+		return tmpM;
 	}
 	
 	public void setTmp(int t) {
