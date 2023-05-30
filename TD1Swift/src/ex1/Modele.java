@@ -15,6 +15,7 @@ public class Modele extends Observable implements Runnable{
 	private int select = 0;
 	private ArrayList<Integer> inventaire;
 	private int speed;
+	private int argent = 0;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
@@ -28,6 +29,25 @@ public class Modele extends Observable implements Runnable{
 			}
 		}
 		
+	}
+	
+	public int getArg() {
+		return argent;
+	}
+	
+	public void vendre(int a) {
+		if(inventaire.get(a)>0) {
+			argent+=10;
+			inventaire.set(a, inventaire.get(a)-1);
+			int i = 0;
+			boolean cond = false;
+			while(!cond && i<recolte.size()) {
+				if(recolte.get(i).getType()==a) {
+					recolte.remove(i);
+				}
+				i++;
+			}
+		}
 	}
 	
 	public void setSpeed(int s) {

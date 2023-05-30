@@ -36,7 +36,10 @@ public class Vue extends JFrame implements Observer{
 	private static final long serialVersionUID = 1L;
 	private Modele m;
 	private JLabel[][] tabG;
+	private JLabel menu = new JLabel();
+	private JLabel mag = new JLabel();
 	private JLabel score = new JLabel();
+	private JLabel argent = new JLabel();
 	private JLabel date = new JLabel();
 	private JLabel temp = new JLabel();
 	private JLabel ensol = new JLabel();
@@ -44,7 +47,7 @@ public class Vue extends JFrame implements Observer{
 	private JLabel invSal = new JLabel();
 	private JLabel invCar = new JLabel();
 	private JLabel invTom = new JLabel();
-	private JSlider speed = new JSlider(0,10);
+	private JSlider speed = new JSlider(0,50);
 	private ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
 	
 	
@@ -109,6 +112,14 @@ public class Vue extends JFrame implements Observer{
 		
 		JPanel panelMenu = new JPanel();
 		panelMenu.setSize(400,700);
+		
+		
+		
+		menu.setForeground(Color.WHITE);
+		menu.setText("Menu principal : ");
+		
+		panelMenu.add(menu);
+		
 		JButton vid = new JButton("Tout récolter");
 		panelMenu.add(vid);
 		vid.addMouseListener(new MouseAdapter(){
@@ -145,6 +156,46 @@ public class Vue extends JFrame implements Observer{
 			}
 		});
 		
+		JPanel panelMag = new JPanel();
+		panelMag.setSize(400,700);
+		
+		mag.setForeground(Color.WHITE);
+		mag.setText("Magasin : ");
+		
+		panelMag.add(mag);
+		
+		argent.setForeground(Color.WHITE);
+		argent.setText("Argent : 0");
+		
+		panelMag.add(argent);
+		
+		JButton vdSal = new JButton("Vendre une salade");
+		panelMag.add(vdSal);
+		vdSal.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.vendre(0);
+			}
+		});
+		
+		JButton vdCar = new JButton("Vendre une carotte");
+		panelMag.add(vdCar);
+		vdCar.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.vendre(1);
+			}
+		});
+		JButton vdTom = new JButton("Vendre une tomate");
+		panelMag.add(vdTom);
+		vdTom.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.vendre(2);
+			}
+		});
+		
+		
 		score.setForeground(Color.WHITE);
 		
 		date.setForeground(Color.WHITE);
@@ -157,17 +208,28 @@ public class Vue extends JFrame implements Observer{
 		invSal.setForeground(Color.WHITE);
 		invCar.setForeground(Color.WHITE);
 		invTom.setForeground(Color.WHITE);
-		
+		temp.setForeground(Color.WHITE);
+		ensol.setForeground(Color.WHITE);
+		humid.setForeground(Color.WHITE);
+		speed.setBackground(Color.BLACK);
 		panelMenu.add(invSal);
 		panelMenu.add(invCar);
 		panelMenu.add(invTom);
+		panelMenu.add(temp);
+		panelMenu.add(ensol);
+		panelMenu.add(humid);
 		
 		panelMenu.setBackground(Color.black);
 		panelMenu.setVisible(true);
 		
+		panelMag.setBackground(Color.black);
+		panelMag.setVisible(true);
+		
 		panelMenu.add(speed);
 		panelMenu.setLayout(new GridLayout(15,1));
-		panelPrincipal.add(panelMenu, BorderLayout.EAST);
+		panelMag.setLayout(new GridLayout(15,1));
+		panelPrincipal.add(panelMenu, BorderLayout.WEST);
+		panelPrincipal.add(panelMag, BorderLayout.EAST);
 		panelPrincipal.setBackground(Color.blue);
 		panelPrincipal.setVisible(true);
 		
@@ -217,6 +279,10 @@ public class Vue extends JFrame implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		m.setSpeed(speed.getValue());
+		argent.setText("Argent : "+m.getArg());
+		temp.setText(m.getMet().getTemp());
+		ensol.setText(m.getMet().getEnsol());
+		humid.setText(m.getMet().getHumid());
 		score.setText("Score : "+((Integer)(m.getNb()*10)).toString());
 		date.setText("Date : "+m.getMet().getDate());
 		invSal.setText("Salade : "+ m.getInv(0));

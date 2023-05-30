@@ -34,9 +34,9 @@ public class Legume {
 		tmp = t;
 	}
 	
-	//public void pousse(Meteo met) {
-	//	tmp += met.get;
-	//}
+	public void pousse(Meteo met) {
+		tmp += met.fact();
+	}
 	
 	public void estMure() {
 		if(tmpM<tmp) {
