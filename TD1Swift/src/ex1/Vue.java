@@ -38,6 +38,7 @@ public class Vue extends JFrame implements Observer{
 	private JLabel[][] tabG;
 	private JLabel menu = new JLabel();
 	private JLabel mag = new JLabel();
+	private JLabel graine = new JLabel();
 	private JLabel score = new JLabel();
 	private JLabel argent = new JLabel();
 	private JLabel date = new JLabel();
@@ -47,6 +48,9 @@ public class Vue extends JFrame implements Observer{
 	private JLabel invSal = new JLabel();
 	private JLabel invCar = new JLabel();
 	private JLabel invTom = new JLabel();
+	private JLabel grSal = new JLabel();
+	private JLabel grCar = new JLabel();
+	private JLabel grTom = new JLabel();
 	private JSlider speed = new JSlider(0,50);
 	private ArrayList<BufferedImage> list = new ArrayList<BufferedImage>();
 	
@@ -184,6 +188,32 @@ public class Vue extends JFrame implements Observer{
 		panelMag.add(invCar);
 		panelMag.add(invTom);
 		
+		JButton acSal = new JButton("Acheter une graine de salade");
+		panelMag.add(acSal);
+		acSal.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.acheter(0);
+			}
+		});
+		
+		JButton acCar = new JButton("Acheter une graine de carotte");
+		panelMag.add(acCar);
+		acCar.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.acheter(1);
+			}
+		});
+		JButton acTom = new JButton("Acheter une graine de tomate");
+		panelMag.add(acTom);
+		acTom.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				m.acheter(2);
+			}
+		});
+		
 		JButton vdSal = new JButton("Vendre une salade");
 		panelMag.add(vdSal);
 		vdSal.addMouseListener(new MouseAdapter(){
@@ -219,14 +249,24 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMenu.add(date);
 		
+		graine.setText("Graine : ");
+		
 		
 		invSal.setForeground(Color.WHITE);
 		invCar.setForeground(Color.WHITE);
 		invTom.setForeground(Color.WHITE);
+		graine.setForeground(Color.WHITE);
+		grSal.setForeground(Color.WHITE);
+		grCar.setForeground(Color.WHITE);
+		grTom.setForeground(Color.WHITE);
 		temp.setForeground(Color.WHITE);
 		ensol.setForeground(Color.WHITE);
 		humid.setForeground(Color.WHITE);
 		speed.setBackground(Color.BLACK);
+		panelMenu.add(graine);
+		panelMenu.add(grSal);
+		panelMenu.add(grCar);
+		panelMenu.add(grTom);
 		panelMenu.add(temp);
 		panelMenu.add(ensol);
 		panelMenu.add(humid);
@@ -300,6 +340,9 @@ public class Vue extends JFrame implements Observer{
 		invSal.setText("Salade : "+ m.getInv(0));
 		invCar.setText("Carotte : "+ m.getInv(1));
 		invTom.setText("Tomate : "+ m.getInv(2));
+		grSal.setText("Salade : "+ m.getGr(0));
+		grCar.setText("Carotte : "+ m.getGr(1));
+		grTom.setText("Tomate : "+ m.getGr(2));
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {
 				for(int g =0; g<list.size(); g++) {

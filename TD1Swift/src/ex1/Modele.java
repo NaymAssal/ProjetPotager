@@ -55,6 +55,13 @@ public class Modele extends Observable implements Runnable{
 		}
 	}
 	
+	public void acheter(int a) {
+		if(argent>5) {
+			inventaireGraine.set(a, inventaireGraine.get(a)+1);
+			argent -= 5;
+		}
+	}
+	
 	public void setSpeed(int s) {
 		this.speed = s;
 	}
@@ -103,8 +110,10 @@ public class Modele extends Observable implements Runnable{
 				}
 			}
 			else {
-				tab[i][j] = new Case(new Legume(select));
-				
+				if(inventaireGraine.get(select)>0) {
+					tab[i][j] = new Case(new Legume(select));
+					inventaireGraine.set(select, inventaireGraine.get(select)-1);
+				}	
 			}
 		}
 		else {
@@ -115,6 +124,10 @@ public class Modele extends Observable implements Runnable{
 	
 	public int getInv(int a) {
 		return inventaireRecolte.get(a);
+		}
+	
+	public int getGr(int a) {
+		return inventaireGraine.get(a);
 		}
 	
 	public void run() {
