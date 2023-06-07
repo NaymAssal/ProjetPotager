@@ -11,11 +11,9 @@ public class Legume {
 		tmp = 0;
 		mure = false;
 		this.type = type;
-		switch(type) {
-		case 0: tmpM = 50;
-		case 1: tmpM = 20;
-		case 2: tmpM = 35;
-		}
+		
+		tmpM = 50;
+		
 	}
 	
 	public int getType() {
@@ -43,13 +41,17 @@ public class Legume {
 	}
 	
 	public void pousse(Meteo met) {
-		tmp += met.fact();
+		estMure();
+		setTmp(tmp+1);
 	}
 	
 	public void estMure() {
-		if(tmpM<tmp) {
-			mure = true;
+		if(!mure) {
+			if(tmpM<tmp) {
+				mure = true;
+			}
 		}
+		
 	}
 	
 	

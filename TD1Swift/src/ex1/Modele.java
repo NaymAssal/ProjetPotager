@@ -16,7 +16,7 @@ public class Modele extends Observable implements Runnable{
 	private ArrayList<Integer> inventaireRecolte;
 	private ArrayList<Integer> inventaireGraine;
 	private int speed;
-	private int argent = 0;
+	private int argent = 10;
 	
 	public Modele(int size, Meteo meteo) {
 		recolte = new ArrayList<Legume>();
@@ -56,7 +56,7 @@ public class Modele extends Observable implements Runnable{
 	}
 	
 	public void acheter(int a) {
-		if(argent>5) {
+		if(argent>=5) {
 			inventaireGraine.set(a, inventaireGraine.get(a)+1);
 			argent -= 5;
 		}
@@ -101,27 +101,44 @@ public class Modele extends Observable implements Runnable{
 	}
 	
 	public void maj(int i, int j) {
-		if(tab[i][j].getArr()) {
-			if(tab[i][j].hasLegume()) {
-				if(tab[i][j].getLegume().getMure()) {
-					recolte.add(tab[i][j].getLegume());
-					inventaireRecolte.set(tab[i][j].getLegume().getType(), 1 +inventaireRecolte.get(tab[i][j].getLegume().getType()));
-					tab[i][j] = new Case();
+		if(tab[i][j].getLab()) {
+			if(tab[i][j].getArr()) {
+				if(tab[i][j].hasLegume()) {
+					if(tab[i][j].getLegume().getMure()) {
+						
+						recolte.add(tab[i][j].getLegume());
+						inventaireRecolte.set(tab[i][j].getLegume().getType(), 1 +inventaireRecolte.get(tab[i][j].getLegume().getType()));
+						tab[i][j] = new Case();
+					}
+					else {
+						
+					}
+				}
+				else {
+					if(inventaireGraine.get(select)>0) {
+						tab[i][j] = new Case(new Legume(select));
+						inventaireGraine.set(select, inventaireGraine.get(select)-1);
+					}	
 				}
 			}
 			else {
-				if(inventaireGraine.get(select)>0) {
-					tab[i][j] = new Case(new Legume(select));
-					inventaireGraine.set(select, inventaireGraine.get(select)-1);
-				}	
+				
+				if(argent>=1) {
+					tab[i][j].setArr(true);
+					argent--;
+				}
+				
 			}
 		}
 		else {
-			tab[i][j].setArr(true);
+			
+			if(argent>=1) {
+				tab[i][j].setLab(true);
+				argent--;
+			}
+			
 		}
-		
 	}
-	
 	public int getInv(int a) {
 		return inventaireRecolte.get(a);
 		}
@@ -139,10 +156,7 @@ public class Modele extends Observable implements Runnable{
 			try {
 				for(int i=0; i<size;i++) {
 					for(int j=0; j<size;j++) {
-						if(tab[i][j].hasLegume()) {
-							tab[i][j].getLegume().estMure();
-							tab[i][j].getLegume().setTmp(tab[i][j].getLegume().getTmp()+1);
-						}
+						tab[i][j].evol(meteo);
 						
 					}
 				}

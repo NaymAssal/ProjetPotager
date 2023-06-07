@@ -39,6 +39,7 @@ public class Vue extends JFrame implements Observer{
 	private JLabel menu = new JLabel();
 	private JLabel mag = new JLabel();
 	private JLabel graine = new JLabel();
+	private JLabel legume = new JLabel();
 	private JLabel score = new JLabel();
 	private JLabel argent = new JLabel();
 	private JLabel date = new JLabel();
@@ -82,6 +83,17 @@ public class Vue extends JFrame implements Observer{
 
 	ImageIcon icTerreArr = new ImageIcon(terreArr.getScaledInstance(200, 200,java.awt.Image.SCALE_SMOOTH));
 
+	{
+		try {
+			image = ImageIO.read(new File("terreHerbe.png")); // chargement de l'image globale
+		}catch(Exception e) {
+			e.addSuppressed(e);
+		}
+	}
+	
+	BufferedImage terreHer = image; // image du légume le légume (x, y : coin supérieur gauche, w, h : largeur et hauteur)
+	
+	ImageIcon icTerreHer = new ImageIcon(terreHer.getScaledInstance(200, 200,java.awt.Image.SCALE_SMOOTH));
 	{
 		try {
 			image = ImageIO.read(new File("data.png")); // chargement de l'image globale
@@ -184,6 +196,8 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMag.add(argent);
 		
+		panelMag.add(legume);
+		
 		panelMag.add(invSal);
 		panelMag.add(invCar);
 		panelMag.add(invTom);
@@ -249,13 +263,16 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMenu.add(date);
 		
-		graine.setText("Graine : ");
+		graine.setText("Graine en stock : ");
+		
+		legume.setText("Légume en stock : ");
 		
 		
 		invSal.setForeground(Color.WHITE);
 		invCar.setForeground(Color.WHITE);
 		invTom.setForeground(Color.WHITE);
 		graine.setForeground(Color.WHITE);
+		legume.setForeground(Color.WHITE);
 		grSal.setForeground(Color.WHITE);
 		grCar.setForeground(Color.WHITE);
 		grTom.setForeground(Color.WHITE);
@@ -278,8 +295,8 @@ public class Vue extends JFrame implements Observer{
 		panelMag.setVisible(true);
 		
 		panelMenu.add(speed);
-		panelMenu.setLayout(new GridLayout(15,1));
-		panelMag.setLayout(new GridLayout(15,1));
+		panelMenu.setLayout(new GridLayout(15,1, 20, 20));
+		panelMag.setLayout(new GridLayout(15,1,20,20));
 		panelPrincipal.add(panelMenu, BorderLayout.WEST);
 		panelPrincipal.add(panelMag, BorderLayout.EAST);
 		panelPrincipal.setBackground(Color.blue);
@@ -357,7 +374,13 @@ public class Vue extends JFrame implements Observer{
 						tabG[i][j].setIcon(icTerreArr);
 					}
 					else {
-						tabG[i][j].setIcon(icTerre);
+						if(m.getTab()[i][j].getLab()) {
+							tabG[i][j].setIcon(icTerre);
+						}
+						else {
+							tabG[i][j].setIcon(icTerreHer);
+						}
+						
 					}
 					
 
