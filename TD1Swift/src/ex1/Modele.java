@@ -147,6 +147,16 @@ public class Modele extends Observable implements Runnable{
 		return inventaireGraine.get(a);
 		}
 	
+	public void vendreTous() {
+        for (int i = 0; i < inventaireRecolte.size(); i++) {
+            if (inventaireRecolte.get(i) > 0) {
+                argent += 10 * inventaireRecolte.get(i);
+                inventaireRecolte.set(i, 0);
+            }
+        }
+        recolte.clear();
+    }
+	
 	public void run() {
 		for(int i=0; i<3; i++) {
 			inventaireRecolte.add((Integer)0);

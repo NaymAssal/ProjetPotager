@@ -12,8 +12,18 @@ public class Legume {
 		mure = false;
 		this.type = type;
 		
-		tmpM = 50;
+		switch(type) {
+		case 0: tmpM=60;
+		case 1: tmpM=20;
+		case 2: tmpM=40;
+		}
 		
+	}
+	
+	public int getSize() {
+		double size;
+		size = (tmp/tmpM)*100;
+		return (int) size;
 	}
 	
 	public int getType() {

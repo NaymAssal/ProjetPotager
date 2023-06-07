@@ -142,7 +142,7 @@ public class Vue extends JFrame implements Observer{
 		
 		
 		
-		menu.setForeground(Color.WHITE);
+		menu.setForeground(Color.BLACK);
 		menu.setText("Menu principal : ");
 		
 		panelMenu.add(menu);
@@ -186,12 +186,12 @@ public class Vue extends JFrame implements Observer{
 		JPanel panelMag = new JPanel();
 		panelMag.setSize(400,700);
 		
-		mag.setForeground(Color.WHITE);
+		mag.setForeground(Color.BLACK);
 		mag.setText("Magasin : ");
 		
 		panelMag.add(mag);
 		
-		argent.setForeground(Color.WHITE);
+		argent.setForeground(Color.BLACK);
 		argent.setText("Argent : 0 euro(s)");
 		
 		panelMag.add(argent);
@@ -254,32 +254,41 @@ public class Vue extends JFrame implements Observer{
 			}
 		});
 		
+		JButton vdTous = new JButton("Tout vendre");
+        panelMag.add(vdTous);
+        vdTous.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                m.vendreTous();
+            }
+        });
 		
-		score.setForeground(Color.WHITE);
 		
-		date.setForeground(Color.WHITE);
+		score.setForeground(Color.BLACK);
+		
+	date.setForeground(Color.BLACK);
 		
 		panelMenu.add(score);
 		
 		panelMenu.add(date);
 		
-		graine.setText("Graine en stock : ");
+		graine.setText("Graines en stock : ");
 		
-		legume.setText("Légume en stock : ");
+		legume.setText("Légumes en stock : ");
 		
 		
-		invSal.setForeground(Color.WHITE);
-		invCar.setForeground(Color.WHITE);
-		invTom.setForeground(Color.WHITE);
-		graine.setForeground(Color.WHITE);
-		legume.setForeground(Color.WHITE);
-		grSal.setForeground(Color.WHITE);
-		grCar.setForeground(Color.WHITE);
-		grTom.setForeground(Color.WHITE);
-		temp.setForeground(Color.WHITE);
-		ensol.setForeground(Color.WHITE);
-		humid.setForeground(Color.WHITE);
-		speed.setBackground(Color.BLACK);
+		invSal.setForeground(Color.BLACK);
+		invCar.setForeground(Color.BLACK);
+		invTom.setForeground(Color.BLACK);
+		graine.setForeground(Color.BLACK);
+		legume.setForeground(Color.BLACK);
+		grSal.setForeground(Color.BLACK);
+		grCar.setForeground(Color.BLACK);
+		grTom.setForeground(Color.BLACK);
+		temp.setForeground(Color.BLACK);
+		ensol.setForeground(Color.BLACK);
+		humid.setForeground(Color.BLACK);
+		speed.setBackground(Color.WHITE);
 		panelMenu.add(graine);
 		panelMenu.add(grSal);
 		panelMenu.add(grCar);
@@ -288,18 +297,17 @@ public class Vue extends JFrame implements Observer{
 		panelMenu.add(ensol);
 		panelMenu.add(humid);
 		
-		panelMenu.setBackground(Color.black);
+		panelMenu.setBackground(Color.WHITE);
 		panelMenu.setVisible(true);
 		
-		panelMag.setBackground(Color.black);
+		panelMag.setBackground(Color.WHITE);
 		panelMag.setVisible(true);
 		
 		panelMenu.add(speed);
-		panelMenu.setLayout(new GridLayout(15,1, 20, 20));
+		panelMenu.setLayout(new GridLayout(20,1, 20, 20));
 		panelMag.setLayout(new GridLayout(15,1,20,20));
 		panelPrincipal.add(panelMenu, BorderLayout.WEST);
 		panelPrincipal.add(panelMag, BorderLayout.EAST);
-		panelPrincipal.setBackground(Color.blue);
 		panelPrincipal.setVisible(true);
 		
 		
@@ -308,9 +316,7 @@ public class Vue extends JFrame implements Observer{
 		
 		panelPrincipal.add(panelCentral, BorderLayout.CENTER);
 		
-		JPanel panelBas = new JPanel();
-		panelBas.setLayout(new GridLayout());
-		panelPrincipal.add(panelBas, BorderLayout.SOUTH);
+		
 		
 		
 		
