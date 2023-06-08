@@ -11,6 +11,9 @@ public class Meteo {
 	int ensol;
 	int humid;
 	Random r = new Random();
+	int prixTom = 8;
+	int prixSal = 10;
+	int prixCar = 9;
 	
 	public Meteo() {
 		jour = 1;
@@ -27,10 +30,12 @@ public class Meteo {
 		if(jour==32) {
 			jour=1;
 			mois++;
+			modifPrix();
 		}
 		if(mois==13) {
 			mois=1;
 			annee++;
+			
 		}
 		if(mois==12) saison = 1;
 		if(mois ==3) saison = 2;
@@ -62,9 +67,6 @@ public class Meteo {
 		return str;
 	}
 	
-	//public void getTemps() {
-	//	return temps;
-	//}
 	
 	public void temps() {
 		int delta;
@@ -89,10 +91,42 @@ public class Meteo {
 	    	humid = Math.min(100,humid+5);
 		
 		
+		
+		
 	}
 	
-	public double fact() {
-		return humid/100.0+ensol/100.0;
+	public void modifPrix() {
+		
+		if(r.nextDouble()<0.5)
+	        prixSal = Math.max(8,prixSal-1);
+	    else
+	    	prixSal = Math.min(12,prixSal+1);
+		
+		if(r.nextDouble()<0.5)
+	        prixCar = Math.max(7,prixCar-1);
+	    else
+	    	prixCar = Math.min(11,prixCar+1);
+		
+		if(r.nextDouble()<0.5)
+	        prixTom = Math.max(6,prixTom-1);
+	    else
+	    	prixTom = Math.min(10,prixTom+1);
+	}
+	
+	public int getPrix(int type) {
+		int prix = 10;
+		if(type==0) prix = prixSal;
+		if(type==1) prix = prixCar;
+		if(type==2) prix = prixTom;
+		return prix;
+	}
+	
+	public int fact() {
+		int fact = 0;
+		if(ensol>90) fact++;
+		if(humid<80 && humid >60) fact++;
+		if(temp>15 && temp<30) fact++;
+		return fact;
 	}
 
 }

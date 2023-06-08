@@ -6,17 +6,18 @@ public class Legume {
 	private int tmpM;
 	private int tmp;
 	private int type;
+	private String nom;
 	
 	public Legume(int type) {
 		tmp = 0;
 		mure = false;
 		this.type = type;
-		
 		switch(type) {
-		case 0: tmpM=60;
-		case 1: tmpM=20;
-		case 2: tmpM=40;
+		case 0: nom = "salade";
+		case 1: nom = "carotte";
+		case 2: nom = "tomate";
 		}
+		tmpM = 100;
 		
 	}
 	
@@ -52,7 +53,11 @@ public class Legume {
 	
 	public void pousse(Meteo met) {
 		estMure();
-		setTmp(tmp+1);
+		if(type==0) setTmp(tmp+1+met.fact());
+		if(type==1) setTmp(tmp+3+met.fact());
+		if(type==2) setTmp(tmp+2+met.fact());
+		
+		
 	}
 	
 	public void estMure() {

@@ -49,6 +49,9 @@ public class Vue extends JFrame implements Observer{
 	private JLabel invSal = new JLabel();
 	private JLabel invCar = new JLabel();
 	private JLabel invTom = new JLabel();
+	private JLabel prixSal = new JLabel();
+	private JLabel prixCar = new JLabel();
+	private JLabel prixTom = new JLabel();
 	private JLabel grSal = new JLabel();
 	private JLabel grCar = new JLabel();
 	private JLabel grTom = new JLabel();
@@ -296,6 +299,9 @@ public class Vue extends JFrame implements Observer{
 		panelMenu.add(temp);
 		panelMenu.add(ensol);
 		panelMenu.add(humid);
+		panelMag.add(prixSal);
+		panelMag.add(prixCar);
+		panelMag.add(prixTom);
 		
 		panelMenu.setBackground(Color.WHITE);
 		panelMenu.setVisible(true);
@@ -305,7 +311,7 @@ public class Vue extends JFrame implements Observer{
 		
 		panelMenu.add(speed);
 		panelMenu.setLayout(new GridLayout(20,1, 20, 20));
-		panelMag.setLayout(new GridLayout(15,1,20,20));
+		panelMag.setLayout(new GridLayout(20,1,20,20));
 		panelPrincipal.add(panelMenu, BorderLayout.WEST);
 		panelPrincipal.add(panelMag, BorderLayout.EAST);
 		panelPrincipal.setVisible(true);
@@ -366,12 +372,15 @@ public class Vue extends JFrame implements Observer{
 		grSal.setText("Salade : "+ m.getGr(0));
 		grCar.setText("Carotte : "+ m.getGr(1));
 		grTom.setText("Tomate : "+ m.getGr(2));
+		prixSal.setText("Prix d'une salade : "+m.getMet().getPrix(0)+" euros");
+		prixCar.setText("Prix d'une carotte : "+m.getMet().getPrix(1)+" euros");
+		prixTom.setText("Prix d'une tomate : "+m.getMet().getPrix(2)+" euros");
 		for(int i=0; i<m.getSize();i++) {
 			for(int j=0; j<m.getSize();j++) {
 				for(int g =0; g<list.size(); g++) {
 				if(m.getTab()[i][j].hasLegume()) {
 					
-					ImageIcon ic = new ImageIcon(list.get(m.getTab()[i][j].getLegume().getType()).getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()*2+1),java.awt.Image.SCALE_SMOOTH)); 
+					ImageIcon ic = new ImageIcon(list.get(m.getTab()[i][j].getLegume().getType()).getScaledInstance(Math.min(100,m.getTab()[i][j].getLegume().getTmp()+1), Math.min(100,m.getTab()[i][j].getLegume().getTmp()+1),java.awt.Image.SCALE_SMOOTH)); 
 					tabG[i][j].setIcon(ic);
 				}
 				

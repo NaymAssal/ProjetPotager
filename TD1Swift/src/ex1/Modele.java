@@ -42,7 +42,7 @@ public class Modele extends Observable implements Runnable{
 	
 	public void vendre(int a) {
 		if(inventaireRecolte.get(a)>0) {
-			argent+=10;
+			argent+= meteo.getPrix(a);
 			inventaireRecolte.set(a, inventaireRecolte.get(a)-1);
 			int i = 0;
 			boolean cond = false;
@@ -150,7 +150,7 @@ public class Modele extends Observable implements Runnable{
 	public void vendreTous() {
         for (int i = 0; i < inventaireRecolte.size(); i++) {
             if (inventaireRecolte.get(i) > 0) {
-                argent += 10 * inventaireRecolte.get(i);
+                argent += meteo.getPrix(i) * inventaireRecolte.get(i);
                 inventaireRecolte.set(i, 0);
             }
         }
